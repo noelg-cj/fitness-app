@@ -18,28 +18,28 @@ class CategoryModel {
       CategoryModel(
         name: 'Salad', 
         icon: 'assets/icons/salad.svg', 
-        boxColor: Color(0xff92A3FD))
+        boxColor: Color(0xff9DCEFF))
     );
 
     categories.add(
       CategoryModel(
         name: "Cake", 
         icon: 'assets/icons/pancakes.svg', 
-        boxColor: Color(0xffC58BF2))
+        boxColor: Color(0xffEEA4CE))
     );
 
     categories.add(
       CategoryModel(
         name: "Pie", 
         icon: 'assets/icons/pie.svg', 
-        boxColor: Color(0xff92A3FD))
+        boxColor: Color(0xff9DCEFF))
     );
 
     categories.add(
       CategoryModel(
         name: "Smoothies",
         icon: 'assets/icons/smoothie.svg',
-        boxColor: Color(0xffC58BF2)
+        boxColor: Color(0xffEEA4CE)
       )
     );
 
