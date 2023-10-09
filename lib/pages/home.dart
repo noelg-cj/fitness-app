@@ -4,13 +4,23 @@ import 'package:firstapp/models/category_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class homePage extends StatelessWidget {
+class homePage extends StatefulWidget {
   const homePage({super.key});
 
+  @override
+  State<homePage> createState() => _homePageState();
+}
+
+class _homePageState extends State<homePage> {
   List<CategoryModel> categories = [];
 
   void _getCategories() {
     categories = CategoryModel.getCategories();
+  }
+
+  @override 
+  void initState() {
+    _getCategories();
   }
 
   @override
