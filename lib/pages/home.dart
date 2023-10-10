@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file:  prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:firstapp/models/category_mode.dart';
 import 'package:firstapp/models/diet_model.dart';
+import 'package:firstapp/models/popular_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -10,10 +11,12 @@ class homePage extends StatelessWidget {
 
   List<CategoryModel> categories = [];
   List<DietModel> diets = [];
+  List<PopularDietsModel> popularDiets = [];
 
   void _getInitialInfo() {
     categories = CategoryModel.getCategories();
     diets = DietModel.getDiets();
+    popularDiets = PopularDietsModel.getPopularDiets();
   }
 
   @override
@@ -27,10 +30,91 @@ class homePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             searchBar(),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             _categoriesSection(),
-            SizedBox(height: 40,),
-            _dietSection()
+            const SizedBox(height: 40,),
+            _dietSection(),
+            const SizedBox(height: 40,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    'Popular',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15,),
+                ListView.separated(
+                  separatorBuilder: (context, index) => const SizedBox(height: 25), 
+                  itemCount: popularDiets.length,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20
+                  ),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      height: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SvgPicture.asset(
+                            popularDiets[index].iconPath,
+                            width: 65,
+                            height: 65,
+                            ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                popularDiets[index].name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                  fontSize: 16
+                                )
+                              ),
+                              Text(
+                                popularDiets[index].level + ' | ' + popularDiets[index].duration + ' | ' + popularDiets[index].calorie,
+                                style: const TextStyle(
+                                  color: Color(0xff7B6F72),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400
+                                ),
+                              )
+                            ],
+                          ),
+                          GestureDetector(
+                            child: SvgPicture.asset('assets/icons/next-button.svg'),
+                            onTap: () {},
+                          )
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: popularDiets[index].boxIsSelected ? 
+                          Colors.white : Colors.transparent,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: popularDiets[index].boxIsSelected ? [
+                          BoxShadow(
+                            color: const Color(0xff1D1617).withOpacity(0.07),
+                            offset: const Offset(0, 10),
+                            blurRadius: 40,
+                            spreadRadius: 0
+                          )
+                        ] : []
+                      ),
+                    );
+                  },
+                  )
+              ],
+            )
           ],
         ),
       )
@@ -41,8 +125,8 @@ class homePage extends StatelessWidget {
     return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left:20),
+              const Padding(
+                padding: EdgeInsets.only(left:20),
                 child: Text(
                   'Recommendation \nfor Diet',
                   style: TextStyle(
@@ -52,7 +136,7 @@ class homePage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               Container(
                 height: 240,
                 child: ListView.separated(
@@ -71,7 +155,7 @@ class homePage extends StatelessWidget {
                             children: [
                               Text(
                                 diets[index].name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black,
                                   fontSize: 16
@@ -79,7 +163,7 @@ class homePage extends StatelessWidget {
                               ),
                               Text(
                                 diets[index].level + ' | ' + diets[index].duration + ' | ' + diets[index].calorie,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color(0xff7B6F72),
                                   fontSize: 13,
                                   fontWeight: FontWeight.w400
@@ -94,8 +178,8 @@ class homePage extends StatelessWidget {
                             decoration: BoxDecoration(  
                               gradient: LinearGradient(
                                 colors: [
-                                  diets[index].viewIsSelected ? Color(0xff9DCEFF) : Colors.transparent,
-                                  diets[index].viewIsSelected ? Color(0xff92A3FD) : Colors.transparent
+                                  diets[index].viewIsSelected ? const Color(0xff9DCEFF) : Colors.transparent,
+                                  diets[index].viewIsSelected ? const Color(0xff92A3FD) : Colors.transparent
                                 ]
                               ),
                               borderRadius: BorderRadius.circular(50)
@@ -104,7 +188,7 @@ class homePage extends StatelessWidget {
                               child: Text(
                                 'View',
                                 style: TextStyle(
-                                  color: diets[index].viewIsSelected ? Colors.white : Color(0xffC58BF2),
+                                  color: diets[index].viewIsSelected ? Colors.white : const Color(0xffC58BF2),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14
                                 )
@@ -115,10 +199,10 @@ class homePage extends StatelessWidget {
                       ),
                     );
                   }, 
-                  separatorBuilder: (context, index) => SizedBox(width: 25,), 
+                  separatorBuilder: (context, index) => const SizedBox(width: 25,), 
                   itemCount: diets.length,
                   scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 20,
                     right: 20
                   ),
@@ -132,8 +216,8 @@ class homePage extends StatelessWidget {
     return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left:20),
+            const Padding(
+              padding: EdgeInsets.only(left:20),
               child: Text(
                 'Category',
                 style: TextStyle(
@@ -143,17 +227,17 @@ class homePage extends StatelessWidget {
                 )
               ),
             ),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
             Container(
               height: 120,
               child: ListView.separated(
                 itemCount: categories.length,
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   left: 20,
                   right: 20
                 ),
-                separatorBuilder: (context, index) => SizedBox(width: 25),
+                separatorBuilder: (context, index) => const SizedBox(width: 25),
                 itemBuilder: (item, index) {
                   return Container(
                     width: 100,
@@ -167,7 +251,7 @@ class homePage extends StatelessWidget {
                         Container(
                           width: 50,
                           height: 50,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle
                           ),
@@ -178,7 +262,7 @@ class homePage extends StatelessWidget {
                         ),
                         Text(
                           categories[index].name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Colors.black,
                             fontSize: 14
@@ -195,11 +279,11 @@ class homePage extends StatelessWidget {
 
   Container searchBar() {
     return Container(
-          margin: EdgeInsets.only(top: 40, left: 20, right: 20),
+          margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Color(0xff1D1617).withOpacity(0.11),
+                color: const Color(0xff1D1617).withOpacity(0.11),
                 blurRadius: 40,
                 spreadRadius: 0.0
               )
@@ -209,9 +293,9 @@ class homePage extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              contentPadding: EdgeInsets.all(15),
+              contentPadding: const EdgeInsets.all(15),
               hintText: 'Search Pancake',
-              hintStyle: TextStyle(
+              hintStyle: const TextStyle(
                 color: Color(0xffDDDADA),
                 fontSize: 14
               ),
@@ -225,7 +309,7 @@ class homePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      VerticalDivider(
+                      const VerticalDivider(
                         color: Colors.black,
                         indent: 10,
                         endIndent: 10,
@@ -250,7 +334,7 @@ class homePage extends StatelessWidget {
 
   AppBar appBar() {
     return AppBar(
-      title: Text(
+      title: const Text(
         "Breakfast",
         style: TextStyle(
           fontSize: 18,
@@ -266,10 +350,10 @@ class homePage extends StatelessWidget {
 
         },
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Color(0xffF7F8F8),
+            color: const Color(0xffF7F8F8),
             borderRadius: BorderRadius.circular(10)
           ),
           child: SvgPicture.asset(
@@ -286,11 +370,11 @@ class homePage extends StatelessWidget {
 
           },
           child: Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           alignment: Alignment.center,
           width: 37,
           decoration: BoxDecoration(
-            color: Color(0xffF7F8F8),
+            color: const Color(0xffF7F8F8),
             borderRadius: BorderRadius.circular(10)
           ),
           child: SvgPicture.asset(
