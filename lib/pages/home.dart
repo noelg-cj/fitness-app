@@ -50,6 +50,7 @@ class homePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 15,),
+                
                 ListView.separated(
                   separatorBuilder: (context, index) => const SizedBox(height: 25), 
                   itemCount: popularDiets.length,

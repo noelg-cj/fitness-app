@@ -1,13 +1,21 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firstapp/models/today_meals_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class planner extends StatelessWidget {
-  const planner({super.key});
+  planner({super.key});
+
+  List<TodaysMeals> todays_meals = [];
+
+  void _getInitialInfo() {
+    todays_meals = TodaysMeals.getTodaysMeals();
+  }
 
   @override
   Widget build(BuildContext context) {
+    _getInitialInfo();
     return Scaffold(
       appBar: _appBar(),
       body: Column(
@@ -57,7 +65,65 @@ class planner extends StatelessWidget {
                   ],
                 ),
               ),
-
+              /* Container(
+                height: 100,
+                color: Colors.blue
+              ), */
+              Container(
+                height: 240,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(height: 10,), 
+                  itemCount: todays_meals.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: EdgeInsets.only(left: 40, right: 40),
+                      height: 80,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              SvgPicture.asset(todays_meals[index].iconPath),
+                              SizedBox(width: 30),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    todays_meals[index].name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontSize: 15
+                                    )
+                                  ),
+                                  Text(
+                                    todays_meals[index].date + ' | ' + todays_meals[index].time,
+                                    style: TextStyle(
+                                      color: Color(0xff7B6F72),
+                                      fontSize: 13
+                                    )
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                            todays_meals[index].notifsEnabled ?
+                            SvgPicture.asset(
+                              'assets/icons/bell_on.svg',
+                              height: 20,
+                              width: 20,
+                              ) :
+                            SvgPicture.asset('assets/icons/bell_off.svg',
+                            height: 32,
+                            width: 32,
+                            )
+                        ],
+                      )
+                    );
+                  },
+                  ),
+              )
             ],
           )
         ],

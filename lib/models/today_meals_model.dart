@@ -13,7 +13,7 @@ class TodaysMeals {
     required this.notifsEnabled
   });
 
-  List<TodaysMeals> getTodaysMeals() {
+  static List<TodaysMeals> getTodaysMeals() {
     List<TodaysMeals> meals = [];
 
     meals.add(TodaysMeals(
