@@ -18,117 +18,133 @@ class planner extends StatelessWidget {
     _getInitialInfo();
     return Scaffold(
       appBar: _appBar(),
-      body: Column(
-        children: [
-          _nutrientsGraph(),
-          SizedBox(height: 20),
-          _scheduleButton(),
-          SizedBox(height: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Today Meals',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600
-                      ),
-                    ),
-                    Container(
-                      height: 30,
-                      width: 87,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        gradient: LinearGradient(
-                        colors: const [
-                        Color(0xff9DCEFF),
-                        Color(0xff92A3FD)
-                          ]
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Breakfast',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          )
-                        ),
-                      ),
-                    )
-                  ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _nutrientsGraph(),
+            SizedBox(height: 20),
+            _scheduleButton(),
+            SizedBox(height: 20),
+            _todaysMeals(),
+            SizedBox(height: 20),
+            Column(
+              children: [
+                Text(
+                  'Find Something to Eat',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600
+                  )
                 ),
-              ),
-              /* Container(
-                height: 100,
-                color: Colors.blue
-              ), */
-              Container(
-                height: 240,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(height: 10,), 
-                  itemCount: todays_meals.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.only(left: 40, right: 40),
-                      height: 80,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(todays_meals[index].iconPath),
-                              SizedBox(width: 30),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    todays_meals[index].name,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                      fontSize: 15
-                                    )
-                                  ),
-                                  Text(
-                                    todays_meals[index].date + ' | ' + todays_meals[index].time,
-                                    style: TextStyle(
-                                      color: Color(0xff7B6F72),
-                                      fontSize: 13
-                                    )
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                            todays_meals[index].notifsEnabled ?
-                            SvgPicture.asset(
-                              'assets/icons/bell_on.svg',
-                              height: 20,
-                              width: 20,
-                              ) :
-                            SvgPicture.asset('assets/icons/bell_off.svg',
-                            height: 32,
-                            width: 32,
-                            )
-                        ],
-                      )
-                    );
-                  },
-                  ),
-              )
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       )
     );
+  }
+
+  Column _todaysMeals() {
+    return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Today Meals',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                    width: 87,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      gradient: LinearGradient(
+                      colors: const [
+                      Color(0xff9DCEFF),
+                      Color(0xff92A3FD)
+                        ]
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Breakfast',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        )
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+
+            Container(
+              height: 180,
+              child: ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(height: 10,), 
+                itemCount: todays_meals.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: EdgeInsets.only(left: 40, right: 40),
+                    height: 80,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            SvgPicture.asset(todays_meals[index].iconPath),
+                            SizedBox(width: 30),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  todays_meals[index].name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                    fontSize: 15
+                                  )
+                                ),
+                                Text(
+                                  todays_meals[index].date + ' | ' + todays_meals[index].time,
+                                  style: TextStyle(
+                                    color: Color(0xff7B6F72),
+                                    fontSize: 13
+                                  )
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                          todays_meals[index].notifsEnabled ?
+                          SvgPicture.asset(
+                            'assets/icons/bell_on.svg',
+                            height: 20,
+                            width: 20,
+                            ) :
+                          SvgPicture.asset('assets/icons/bell_off.svg',
+                          height: 32,
+                          width: 32,
+                          )
+                      ],
+                    )
+                  );
+                },
+                ),
+            )
+          ],
+        );
   }
 
   Padding _scheduleButton() {
