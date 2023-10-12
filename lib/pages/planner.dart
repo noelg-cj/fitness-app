@@ -14,55 +14,104 @@ class planner extends StatelessWidget {
         children: [
           _nutrientsGraph(),
           SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Color(0xff9DCEFF).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(16)
-              ),
-              
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Daily Meal Schedule',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500
-                    )
-                  ),
-                  Container(
-                    height: 30,
-                    width: 75,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: const [
-                          Color(0xff9DCEFF),
-                          Color(0xff92A3FD)
-                        ]
+          _scheduleButton(),
+          SizedBox(height: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Today Meals',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600
                       ),
-                      borderRadius: BorderRadius.circular(50)
                     ),
-                    child: Center(
-                      child: Text(
-                        'Check',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14
+                    Container(
+                      height: 30,
+                      width: 87,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        gradient: LinearGradient(
+                        colors: const [
+                        Color(0xff9DCEFF),
+                        Color(0xff92A3FD)
+                          ]
                         ),
                       ),
-                    ),
-                  )
-                ],
+                      child: Center(
+                        child: Text(
+                          'Breakfast',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          )
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
+
+            ],
           )
         ],
       )
     );
+  }
+
+  Padding _scheduleButton() {
+    return Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Color(0xff9DCEFF).withOpacity(0.2),
+              borderRadius: BorderRadius.circular(16)
+            ),
+            
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Daily Meal Schedule',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500
+                  )
+                ),
+                Container(
+                  height: 30,
+                  width: 75,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: const [
+                        Color(0xff9DCEFF),
+                        Color(0xff92A3FD)
+                      ]
+                    ),
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Check',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
   }
 
   Column _nutrientsGraph() {
@@ -99,7 +148,7 @@ class planner extends StatelessWidget {
                     'Weekly',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 10
+                      fontSize: 12
                     ),
                   ),
                 ),
