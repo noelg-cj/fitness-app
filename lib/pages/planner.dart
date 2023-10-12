@@ -11,51 +11,106 @@ class planner extends StatelessWidget {
     return Scaffold(
       appBar: _appBar(),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          _nutrientsGraph(),
+          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Meal Nutritions',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600
-                  )
-                ),
-                Container(
-                  height: 30,
-                  width: 75,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: const [
-                        Color(0xff9DCEFF),
-                        Color(0xff92A3FD)
-                      ]
-                    ),
-                    borderRadius: BorderRadius.circular(50)
+            child: Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Color(0xff9DCEFF).withOpacity(0.2),
+                borderRadius: BorderRadius.circular(16)
+              ),
+              
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Daily Meal Schedule',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500
+                    )
                   ),
-                  child: Center(
-                    child: Text(
-                      'Weekly',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10
+                  Container(
+                    height: 30,
+                    width: 75,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: const [
+                          Color(0xff9DCEFF),
+                          Color(0xff92A3FD)
+                        ]
+                      ),
+                      borderRadius: BorderRadius.circular(50)
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Check',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
-          Center(
-            child: SvgPicture.asset('assets/icons/Graph.svg'),
           )
         ],
       )
+    );
+  }
+
+  Column _nutrientsGraph() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Meal Nutritions',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+                )
+              ),
+              Container(
+                height: 30,
+                width: 75,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: const [
+                      Color(0xff9DCEFF),
+                      Color(0xff92A3FD)
+                    ]
+                  ),
+                  borderRadius: BorderRadius.circular(50)
+                ),
+                child: Center(
+                  child: Text(
+                    'Weekly',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        Center(
+          child: SvgPicture.asset('assets/icons/Graph.svg'),
+        )
+      ],
     );
   }
 
